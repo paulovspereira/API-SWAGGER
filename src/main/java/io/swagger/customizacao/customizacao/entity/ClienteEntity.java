@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente_tb")
-public class ClienteEntity implements Serializable{
+public class ClienteEntity implements Serializable {
 
 	private static final long serialVersionUID = -1744498845582568202L;
 
@@ -28,9 +28,10 @@ public class ClienteEntity implements Serializable{
 
 	private String password;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-	private List<ContaEntity> contas;
-
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) // Mapeamento um para muitos / cliente é a chave
+	private List<ContaEntity> contas;							// primeria através campo mappedBy que vai ser ultizado
+																// essa chave na tabe conta através CascadeType.ALL
+	
 	public Long getId() {
 		return id;
 	}
@@ -71,4 +72,4 @@ public class ClienteEntity implements Serializable{
 		this.contas = contas;
 	}
 
-}
+}///

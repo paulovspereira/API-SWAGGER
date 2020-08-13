@@ -16,7 +16,7 @@ public class AuthUtil {
 		return new String(base64.encode(cpfPassword.getBytes()));
 	}
 
-	public static String[] getBasicAuth(String auth) {
+	public static String[] getBasicAuth(String auth) {  //Metodo que decodicar o tokem para trazer o cpf e a senha
 
 		Base64 base64 = new Base64();
 

@@ -74,19 +74,18 @@ public class ContaService {
 	}
 	
 	public ResponseEntity<Double> consultaSaldo(String authorization, Integer agencia, Long conta, Integer digito) {
-		
 		ClienteEntity clienteEntity = clienteService.getClienteByAuthorization(authorization);
 
 		if (clienteEntity == null) {
 			return respostasUtil.getNaoAutorizadoDouble(MENSAGEM_NAO_AUTORIZADO);
 		}
-		
+		//Vai fazer uma nova busca para trazer as contas de cliente passando o cliente
 		ContaEntity contaEntity = contas.findByAgenciaAndNumeroAndDigitoAndCliente(agencia, conta, digito, clienteEntity);
 
 		if (contaEntity == null) {
 		    return respostasUtil.getRequisicaoInvalidaDouble(MENSAGEM_CONTA_NAO_ENCONTRADA);
 		}
 		
-		return new ResponseEntity<Double>(contaEntity.getSaldo(), HttpStatus.OK);
+		return new ResponseEntity<Double>(contaEntity.getSaldo(), HttpStatus.OK); //Retorna o saldo do cliente
 	}
 }

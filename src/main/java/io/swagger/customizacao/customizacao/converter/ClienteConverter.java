@@ -8,10 +8,12 @@ import io.swagger.customizacao.customizacao.entity.ContaEntity;
 import io.swagger.model.Cliente;
 import io.swagger.model.Conta;
 
+//Conversão de Dados
 public class ClienteConverter {
 
 	private static final int AGENCIA = 8756;
 	
+	//Metodo que convere toCliente(Json) para toClientEntidada(Banco de dados)
 	public static ClienteEntity toClienteEntity(Cliente cliente, String tokenBasicAuth) {
     	
 		ClienteEntity clienteEntity = new ClienteEntity();
@@ -31,6 +33,8 @@ public class ClienteConverter {
 		return clienteEntity;
 	}
 	
+	//Metodo que convere toClientEntidada(Banco de dados) para toCliente(Json)
+
 	public static Cliente toCliente(ClienteEntity clienteEntity) {
 		
 		Cliente cliente = new Cliente();

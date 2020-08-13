@@ -28,7 +28,7 @@ public class ClienteService {
     @Autowired
     private RespostasUtil respostasUtil;
 
-	public ResponseEntity<Cliente> salva(Cliente cliente_) {
+	public ResponseEntity<Cliente> salva(Cliente cliente_) { //Validação de Salva precisaria de titular,senha e cpd do cliente
 
 		if (ehClienteValidoParaCadastro(cliente_)) { // Verifica se o cliente é valido
 			return respostasUtil.getRequisicaoInvalidaCliente(MENSAGEM_DADOS_INVALIDOS);
@@ -40,21 +40,24 @@ public class ClienteService {
     
 	public Cliente cadastraNovoCliente(Cliente cliente_) {
 		
-		//Faz uma conversão para aceita na tabela de dados
+		//Faz uma conversão json para  aceitar os dados na tabela modelo entidade
 		ClienteEntity clienteEntity = ClienteConverter.toClienteEntity(cliente_, AuthUtil.getBasicAuth(cliente_.getCpf(), cliente_.getSenha()));
 		
-		//Manda para repository para ser salva
-		clienteEntity = repository.save(clienteEntity);
+		//Manda para repository para ser salva na enditade
+		clienteEntity = repository.save(clienteEntity); //Persistindo ou gravando no banco de dados Spring DAta
 			
-		return ClienteConverter.toCliente(clienteEntity); //Converte novamento para Cliente que vai chamado na api
+		return ClienteConverter.toCliente(clienteEntity); //Converte novamento a entidada gravada no banco para Cliente json que vai chamado na api
 	}
 	
-	public ClienteEntity getClienteByAuthorization(String authorization) {
+	public ClienteEntity getClienteByAuthorization(String authorization) { //Metodo se cliente tem autorização pela senha e o cpf
 		String[] basicAuth = AuthUtil.getBasicAuth(authorization);
 		String cpf = basicAuth[0];
 		String password = basicAuth[1];
 		
-		ClienteEntity clienteEntity = repository.findByCpfAndPassword(cpf, password);
+		//Busca o cliente na base dados
+		ClienteEntity clienteEntity = repository.findByCpfAndPassword(cpf, password); //Consulta Spring data
+		
+		
 		return clienteEntity;
 	}
 	

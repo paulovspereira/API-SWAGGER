@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 
 
 
-
+//Classe mapeada da api vei de lá
 public class Cliente   {
   @JsonProperty("id")
   private Long id = null;

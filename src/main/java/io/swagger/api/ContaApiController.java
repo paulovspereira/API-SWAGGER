@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import io.swagger.annotations.ApiParam;
+import io.swagger.customizacao.customizacao.entity.ClienteEntity;
 import io.swagger.customizacao.customizacao.service.ContaService;
 import io.swagger.customizacao.customizacao.util.RespostasUtil;
 
@@ -17,21 +18,21 @@ public class ContaApiController implements ContaApi {
 
 	@Autowired
 	private ContaService contaService;
+	
 
 	@Autowired
 	private RespostasUtil respostasUtil;
 
 	public ResponseEntity<Double> consultaSaldo(
-			@ApiParam(value = "", required = true) @PathVariable("agencia") Integer agencia,
+			@ApiParam(value = "", required = true) @PathVariable("agencia") Integer agencia, //Passando os parâmetor no caminho da requisição
 			@ApiParam(value = "", required = true) @PathVariable("numero") Long numero,
 			@ApiParam(value = "", required = true) @PathVariable("digito") Integer digito,
-			@ApiParam(value = "", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+			@ApiParam(value = "", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) { //Requer uma autorização(senha e cpf) na cabeça requisição
 
 		try {
-			return contaService.consultaSaldo(authorization, agencia, numero, digito);
+			return contaService.consultaSaldo(authorization, agencia, numero, digito);//Metodo que vai consulta no service
 		} catch (Exception e) {
 			return respostasUtil.getErroInternoDouble(respostasUtil.MENSAGEM_FALHA_AO_SALVAR_TRANSACAO);
-		}
+		} 
 	}
-
 }

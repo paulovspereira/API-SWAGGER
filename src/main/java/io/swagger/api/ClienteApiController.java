@@ -23,8 +23,7 @@ public class ClienteApiController implements ClienteApi {
 	@Autowired
     private RespostasUtil respostaUtil;
 	
-	public ResponseEntity<Cliente> cadastraCliente(@ApiParam(value = "") @Valid @RequestBody Cliente cliente_) {
-		
+	public ResponseEntity<Cliente> cadastraCliente(@ApiParam(value = "") @Valid @RequestBody Cliente cliente_) { //Vai no corpo da requisição @ApiParam ajuda especificar o nome e o tipo do parâmetro	
 		try {
 			return clienteService.salva(cliente_);// Vai chamar o service
 			
